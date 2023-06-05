@@ -1,0 +1,53 @@
+// Vigenere cipher
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
+int main(){
+    
+    int i,j,numstr[100],numkey[100],numcipher[100];
+    char str[100],key[100];
+    printf("Enter the plain text:\n");
+    gets(str);
+    for(i=0,j=0;i<strlen(str);i++){
+        if(str[i]!=' '){
+          str[j]=toupper(str[i]);
+          j++;
+        }
+    }
+    str[j]='\0';
+    printf("Plain text is:%s\n",str);
+    for(i=0;i<strlen(str);i++){
+        numstr[i]=str[i]-'A';
+    }
+    printf("Enter the key: \n");
+    gets(key);
+     for(i=0,j=0;i<strlen(key);i++){
+        if(key[i]!=' '){
+          key[j]=toupper(key[i]);
+          j++;
+        }
+    }
+    key[j]='\0';
+    printf("key: %s\n",key);
+    for(i=0;i<strlen(str);)
+    {
+        for(j=0;(j<strlen(key))&&(i<strlen(str));j++)
+        {
+            numkey[i]=key[j]-'A';
+            i++;
+        }
+    }
+
+    for(i=0;i<strlen(str);i++){
+        numcipher[i]=(numstr[i]+numkey[i])%26;
+    }
+    printf("cipher text: ");
+    for(i=0;i<strlen(str);i++){
+        printf("%c",numcipher[i]+'A');
+    }
+    printf("\nDecrypted text: ");
+    for(i=0;i<strlen(str);i++){
+        printf("%c",(numcipher[i]-numkey[i]+26)%26+'A');
+    }
+    return 0;
+}
